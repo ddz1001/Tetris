@@ -46,8 +46,22 @@ var fieldRow = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'];
 var startLine = 23;
 var killLine = 25;
 
+var translateI;
+var translateJ;
+
 var removalList = [];
 var activeTetromino;
+var tracking = false;
+
+function activateTetromino(tetro) {
+	activeTetromino = tetro;
+	tracking = true;
+}
+
+function releaseTetromino() {
+	activeTetronimo = null;
+	tracking = false;
+}
 
 function scanField() {
 	for(i = 0; i < field.length; i++) {
