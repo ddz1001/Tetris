@@ -18,15 +18,48 @@
 				document.getElementById('imgdisplay').appendChild(purpleBlock);
 			}
 			
-			function renderTest() {
+			function draw() {
 				var canvas = document.getElementById('canvas');
 				var context = canvas.getContext("2d");
 				var f = field;
 				drawField(f, context);
-				scanField();
-				removeLines();
-			}	
+			}
 			
+			function renderTest() {
+				activateTetromino(new StraightPolyomino());
+				insertTetromino();
+				draw();
+			}
+			
+			function moveLeft() {
+				translateTetromino(I_TRANSLATION, -1);
+				draw();
+			}
+			
+			function moveRight() {
+				translateTetromino(I_TRANSLATION, 1);
+				draw();
+			}
+			
+			function moveUp() {
+				translateTetromino(J_TRANSLATION, 1);
+				draw();
+			}
+			
+			function moveDown() {
+				translateTetromino(J_TRANSLATION, -1);
+				draw();
+			}
+			
+			function rotateRight() {
+				rotateTetromino(ROTATE_CLOCKWISE);
+				draw();
+			}
+			function rotateLeft() {
+				rotateTetromino(ROTATE_C_CLOCKWISE);
+				draw();
+			}
+
 			function initSprites() {
 				initializeSpriteMap(charset, imgset);
 			}
@@ -44,7 +77,19 @@
 		
 		<canvas id="canvas" width=240 height=1008>
 		</canvas>
-		
 		<p>Canvas end</p>
+		<button onclick="draw()">Redraw</button>
+		<p>
+			<button onclick="moveLeft()">Left</button>
+			<button onclick="moveRight()">Right</button>
+		</p>
+		<p>
+			<button onclick="moveUp()">Up</button>
+			<button onclick="moveDown()">Down</button>
+		</p>
+		<p>
+			<button onclick="rotateLeft()"> <- </button>
+			<button onclick="rotateRight()"> -> </button>
+		</p>
 	</body>
 </html>

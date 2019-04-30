@@ -1,6 +1,6 @@
 function _2DCoordinate(ic, jc) {
 	this.i = ic;
-	this.j = ic;
+	this.j = jc;
 }
 
 function StraightPolyomino() {
@@ -41,18 +41,18 @@ function StraightPolyomino() {
 	}
 	
 	this.advanceState = function() {
-		this.state = (this.state < 3) ? this.state++ : 0;
+		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
 	this.retreatState = function() {
-		this.state = (this.state > 0) ? this.state-- : 3;
+		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
-	this.state0() = function() {
+	this.state0 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
 		
@@ -72,7 +72,7 @@ function StraightPolyomino() {
 		this.maxJ = 3;
 	}
 	
-	this.state1() = function() {
+	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 2;
 		
@@ -92,7 +92,7 @@ function StraightPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state2() = function() {
+	this.state2 = function() {
 		this.p1.i = 2;
 		this.p1.j = 0;
 		
@@ -112,7 +112,7 @@ function StraightPolyomino() {
 		this.maxJ = 3;
 	}
 	
-	this.state3() = function() {
+	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -172,18 +172,18 @@ function SquarePolyomino() {
 	}
 	
 	this.advanceState = function() {
-		this.state = (this.state < 3) ? this.state++ : 0;
+		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
 	this.retreatState = function() {
-		this.state = (this.state > 0) ? this.state-- : 3;
+		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
-	this.state0() = function() {
+	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -203,7 +203,7 @@ function SquarePolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state1() = function() {
+	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -223,7 +223,7 @@ function SquarePolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state2() = function() {
+	this.state2 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -243,7 +243,7 @@ function SquarePolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state3() = function() {
+	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -303,18 +303,18 @@ function JPolyomino() {
 	}
 	
 	this.advanceState = function() {
-		this.state = (this.state < 3) ? this.state++ : 0;
+		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
 	this.retreatState = function() {
-		this.state = (this.state > 0) ? this.state-- : 3;
+		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
-	this.state0() = function() {
+	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 0;
 		
@@ -334,7 +334,7 @@ function JPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state1() = function() {
+	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -354,7 +354,7 @@ function JPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state2() = function() {
+	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
 		
@@ -374,7 +374,7 @@ function JPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state3() = function() {
+	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -434,18 +434,18 @@ function LPolyomino() {
 	}
 	
 	this.advanceState = function() {
-		this.state = (this.state < 3) ? this.state++ : 0;
+		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
 	this.retreatState = function() {
-		this.state = (this.state > 0) ? this.state-- : 3;
+		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
-	this.state0() = function() {
+	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 2;
 		
@@ -465,7 +465,7 @@ function LPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state1() = function() {
+	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -485,7 +485,7 @@ function LPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state2() = function() {
+	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
 		
@@ -505,7 +505,7 @@ function LPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state3() = function() {
+	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 0;
 		
@@ -566,18 +566,18 @@ function TPolyomino() {
 	}
 	
 	this.advanceState = function() {
-		this.state = (this.state < 3) ? this.state++ : 0;
+		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
 	this.retreatState = function() {
-		this.state = (this.state > 0) ? this.state-- : 3;
+		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
-	this.state0() = function() {
+	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -597,7 +597,7 @@ function TPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state1() = function() {
+	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -617,7 +617,7 @@ function TPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state2() = function() {
+	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
 		
@@ -637,7 +637,7 @@ function TPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state3() = function() {
+	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -697,18 +697,18 @@ function SPolyomino() {
 	}
 	
 	this.advanceState = function() {
-		this.state = (this.state < 3) ? this.state++ : 0;
+		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
 	this.retreatState = function() {
-		this.state = (this.state > 0) ? this.state-- : 3;
+		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
-	this.state0() = function() {
+	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -728,7 +728,7 @@ function SPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state1() = function() {
+	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
@@ -748,7 +748,7 @@ function SPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state2() = function() {
+	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 1;
 		
@@ -768,7 +768,7 @@ function SPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state3() = function() {
+	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 0;
 		
@@ -828,18 +828,18 @@ function ZPolyomino() {
 	}
 	
 	this.advanceState = function() {
-		this.state = (this.state < 3) ? this.state++ : 0;
+		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
 	this.retreatState = function() {
-		this.state = (this.state > 0) ? this.state-- : 3;
+		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
-	this.state0() = function() {
+	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 0;
 		
@@ -859,7 +859,7 @@ function ZPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state1() = function() {
+	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 2;
 		
@@ -879,7 +879,7 @@ function ZPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state2() = function() {
+	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
 		
@@ -899,7 +899,7 @@ function ZPolyomino() {
 		this.maxJ = 2;
 	}
 	
-	this.state3() = function() {
+	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
 		
