@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Test</title>
+		
+		<script src="fieldarray.js"></script>
+		<script src="tetromino.js"></script>
+		<script src="rendercanvas.js"></script>
+		<script src="sprites.js"></script>
+		<script>
+			function showAll() {
+				document.getElementById('imgdisplay').appendChild(blankBlock);
+				document.getElementById('imgdisplay').appendChild(redBlock);
+				document.getElementById('imgdisplay').appendChild(blueBlock);
+				document.getElementById('imgdisplay').appendChild(greenBlock);
+				document.getElementById('imgdisplay').appendChild(cyanBlock);
+				document.getElementById('imgdisplay').appendChild(yellowBlock);
+				document.getElementById('imgdisplay').appendChild(orangeBlock);
+				document.getElementById('imgdisplay').appendChild(purpleBlock);
+			}
+			
+			function renderTest() {
+				var canvas = document.getElementById('canvas');
+				var context = canvas.getContext("2d");
+				var f = field;
+				drawField(f, context);
+				scanField();
+				removeLines();
+			}	
+			
+			function initSprites() {
+				initializeSpriteMap(charset, imgset);
+			}
+			
+			function init() {
+				initSprites();
+				renderTest();
+			}
+		</script>
+	</head>
+	
+	<body onload='init()'>
+		<h1>Test</h1>
+		<div id='imgdisplay'> </div>
+		
+		<canvas id="canvas" width=240 height=1008>
+		</canvas>
+		
+		<p>Canvas end</p>
+	</body>
+</html>
