@@ -8,7 +8,7 @@ function drawField(fld, context) {
 	xr = 24;
 	yr = 24;
 	
-	for(i = fld.length - 1; i >= 0; i--) {
+	for(i = 24; i >= 0; i--) {
 		for(j = 0; j < fld[i].length; j++) {
 			context.drawImage(getImage(fld[i][j]), xc, yc);
 			xc += xr;

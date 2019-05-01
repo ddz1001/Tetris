@@ -9,6 +9,8 @@ function StraightPolyomino() {
 	this.p3 = new _2DCoordinate(1,2);
 	this.p4 = new _2DCoordinate(1,3);
 	
+	this.pArray = [this.p1, this.p2, this.p3, this.p4];
+	
 	this.drawChar = 'I';
 	this.advanced = 1;
 	this.retreated = 0;
@@ -139,6 +141,8 @@ function SquarePolyomino() {
 	this.p2 = new _2DCoordinate(0,2);
 	this.p3 = new _2DCoordinate(1,1);
 	this.p4 = new _2DCoordinate(1,2);
+	
+	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
 	this.drawChar = 'O';
 	this.advanced = 1;
@@ -271,6 +275,8 @@ function JPolyomino() {
 	this.p3 = new _2DCoordinate(1,1);
 	this.p4 = new _2DCoordinate(1,2);
 	
+	this.pArray = [this.p1, this.p2, this.p3, this.p4];
+	
 	this.drawChar = 'J';
 	this.advanced = 1;
 	this.retreated = 0;
@@ -402,6 +408,8 @@ function LPolyomino() {
 	this.p3 = new _2DCoordinate(1,1);
 	this.p4 = new _2DCoordinate(1,2);
 	
+	this.pArray = [this.p1, this.p2, this.p3, this.p4];
+	
 	this.drawChar = 'L';
 	this.advanced = 1;
 	this.retreated = 0;
@@ -532,6 +540,8 @@ function TPolyomino() {
 	this.p2 = new _2DCoordinate(1,0);
 	this.p3 = new _2DCoordinate(1,1);
 	this.p4 = new _2DCoordinate(1,2);
+	
+	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
 	this.drawChar = 'T';
 	this.advanced = 1;
@@ -665,6 +675,8 @@ function SPolyomino() {
 	this.p3 = new _2DCoordinate(1,0);
 	this.p4 = new _2DCoordinate(1,1);
 	
+	this.pArray = [this.p1, this.p2, this.p3, this.p4];
+	
 	this.drawChar = 'S';
 	this.advanced = 1;
 	this.retreated = 0;
@@ -796,6 +808,8 @@ function ZPolyomino() {
 	this.p3 = new _2DCoordinate(1,1);
 	this.p4 = new _2DCoordinate(1,2);
 	
+	this.pArray = [this.p1, this.p2, this.p3, this.p4];
+	
 	this.drawChar = 'Z';
 	this.advanced = 1;
 	this.retreated = 0;
@@ -900,7 +914,7 @@ function ZPolyomino() {
 	}
 	
 	this.state3 = function() {
-		this.p1.i = 0;
+		this.p1.i = 1;
 		this.p1.j = 1;
 		
 		this.p2.i = 1;

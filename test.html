@@ -25,9 +25,25 @@
 				drawField(f, context);
 			}
 			
-			function renderTest() {
-				activateTetromino(new StraightPolyomino());
+			function renderTest(tetro) {
+				activateTetromino(tetro);
+				if(spawnBlocked()) {
+					alertSpawn();
+					releaseTetromino();
+					return;
+				}
 				insertTetromino();
+				draw();
+			}
+			
+			function release() {
+				releaseTetromino();
+				draw();
+			}
+			
+			function scanRemove() {
+				scanField();
+				removeLines();
 				draw();
 			}
 			
@@ -60,13 +76,23 @@
 				draw();
 			}
 
+			function alertSpawn() {
+				var chk = spawnBlocked();
+				alert(chk);
+			}
+			
+			function checkKill() {
+				var chk = scanKillLine();
+				alert(chk);
+			}
+			
 			function initSprites() {
 				initializeSpriteMap(charset, imgset);
 			}
 			
 			function init() {
 				initSprites();
-				renderTest();
+				draw();
 			}
 		</script>
 	</head>
@@ -75,7 +101,7 @@
 		<h1>Test</h1>
 		<div id='imgdisplay'> </div>
 		
-		<canvas id="canvas" width=240 height=1008>
+		<canvas id="canvas" width=240 height=600>
 		</canvas>
 		<p>Canvas end</p>
 		<button onclick="draw()">Redraw</button>
@@ -90,6 +116,22 @@
 		<p>
 			<button onclick="rotateLeft()"> <- </button>
 			<button onclick="rotateRight()"> -> </button>
+		</p>
+		<p>
+			<button onclick="release()">Release</button>
+			<button onclick="scanRemove()">Scan</button>
+		</p>
+		<p>
+			<button onclick="renderTest(new StraightPolyomino())">Straight</button>
+			<button onclick="renderTest(new SquarePolyomino())">Square</button>
+			<button onclick="renderTest(new JPolyomino())">J</button>
+			<button onclick="renderTest(new LPolyomino())">L</button>
+			<button onclick="renderTest(new SPolyomino())">S</button>
+			<button onclick="renderTest(new ZPolyomino())">Z</button>
+			<button onclick="renderTest(new TPolyomino())">T</button>
+		</p>
+		<p>
+			<button onclick="checkKill()">Kill Line</button>
 		</p>
 	</body>
 </html>
