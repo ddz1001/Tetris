@@ -1,0 +1,253 @@
+<html>
+	<head>
+		<title>Tetris</title>
+		
+		<style>
+			body {
+				background-image: linear-gradient(to bottom, gray , white);
+			}
+			
+			div.score {
+				background-color: white;
+				font-size: 18px;
+				font-family: "Consolas";
+				
+				max-width: 100px;
+				
+				border: solid;
+				border-width: 1px;
+				border-color: red;
+			}
+			
+			.content {
+				max-width: 540px;
+				margin: auto;
+			}
+			
+			button {
+				background-color: white; 
+				border: solid;
+				border-width: 1px;
+				color: black;
+				text-align: center;
+				font-size: 24px;
+				display: inline-block;
+			}
+			
+			
+			h1 {
+				font-family: "Impact";
+			}
+		</style>
+		
+		<script src="fieldarray.js"></script>
+		<script src="tetromino.js"></script>
+		<script src="rendercanvas.js"></script>
+		<script src="sprites.js"></script>
+		<script>
+		
+		/*Initialize game state */
+		function init() {
+			window.addEventListener("keydown", keyPress, false);
+			initializeSpriteMap(charset, imgset);
+			draw();
+		}
+		
+		/*Key handler*/
+		function keyPress(e) {
+			switch(e.keyCode) {
+				case 37: //Left key
+					moveLeft();
+					break;
+				case 39: //Right key
+					moveRight();
+					break;
+				case 40: //Down key
+					moveDown();
+					
+					//Forcing a down movement adds 5 points
+					if(!tetrominoImpacted()) {
+						score += 5;
+						updateScore();
+					}
+					
+					break;
+				case 90: //Z key
+					rotateLeft();
+					break;
+				case 88: //X key
+					rotateRight();
+					break;
+			}
+			
+		}
+		
+		/*Draw field to canvas */
+		function draw() {
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext("2d");
+			var f = field;
+			drawField(f, context);
+		}
+		/*Move piece left */
+		function moveLeft() {
+			translateTetromino(I_TRANSLATION, -1);
+			draw();
+		}
+			
+		/*Move piece right */
+		function moveRight() {
+			translateTetromino(I_TRANSLATION, 1);
+			draw();
+		}
+		
+		/*Move piece down */
+		function moveDown() {
+			translateTetromino(J_TRANSLATION, -1);
+			draw();
+		}
+		
+		/*Rotate clockwise */
+		function rotateRight() {
+			rotateTetromino(ROTATE_CLOCKWISE);
+			draw();
+		}
+		
+		/*Rotate counter-clockwise */
+		function rotateLeft() {
+			rotateTetromino(ROTATE_C_CLOCKWISE);
+			draw();
+		}
+		
+		/*Spawn a random piece */
+		function spawnRandomTetromino() {
+			var rand = Math.floor(Math.random() * (7 - 0)) + 0; 
+			
+			switch(rand) {
+			
+				case 0:
+					spawnTetromino(new StraightPolyomino());
+					break;
+				case 1:
+					spawnTetromino(new SquarePolyomino());
+					break;
+				case 2:
+					spawnTetromino(new LPolyomino());
+					break;
+				case 3:
+					spawnTetromino(new JPolyomino());
+					break;
+				case 4:
+					spawnTetromino(new ZPolyomino());
+					break;
+				case 5:
+					spawnTetromino(new SPolyomino());
+				case 6:
+					spawnTetromino(new TPolyomino());
+					break;
+			}
+			
+		}
+		
+		var pressed = false;
+		var gameover = false; //Flag if game is over
+		var score = 0; //Current score
+		var gameInterval; //Interval script
+		
+		/*Check if the game can still be played */
+		function checkGame() {
+			if(scanKillLine() || spawnBlocked()) {
+				gameover = true;
+			}
+		}
+		/*Function that the button calls */
+		function startButtonFunc() {
+			if(!pressed) {
+				startGameLogic();
+				pressed = true;
+			}
+		}
+		
+		/*Start the movement script */
+		function startGameLogic() {
+			checkGame();
+			if(gameover) {
+				alert('Game Over');
+				return;
+			}
+			
+			spawnRandomTetromino();
+			insertTetromino();
+			gameInterval = setInterval(gameLogicInterval, 650);
+			
+		}
+		
+		/*Movement script interval */
+		function gameLogicInterval() {
+			if(tetrominoImpacted()) {
+				releaseTetromino();
+				endGameLogic();
+				if(!gameover) {
+					startGameLogic();
+				}
+			}
+			else {
+				moveDown();
+			}
+		}
+		
+		/*End movement script and calculate score */
+		function endGameLogic() {
+			clearInterval(gameInterval);
+			scanField();
+			var cleared = removalList.length;
+			removeLines();
+			calculateScore(cleared);
+			updateScore();
+			draw();
+		}
+		
+		/*Calculate the score based on how many lines were completed */
+		function calculateScore(l) {
+			switch(l) {
+				case 1:
+					score += 40;
+					break;
+				case 2:
+					score += 100;
+					break;
+				case 3:
+					score += 300;
+					break;
+				case 4:
+					score += 1200;
+					break;
+			}
+		}
+		
+		/*Update the score to the page */
+		function updateScore() {
+			document.getElementById('score').innerHTML = score;
+		}
+		/*Spawn the piece */
+		function spawnTetromino(x) {
+			activateTetromino(x);
+		}
+		
+		</script>
+		
+		
+	</head>
+	<body onload="init()">
+	<div class="content">
+		<h1>Tetris</h1>
+		<div class="score" id=score>0</div>
+		<canvas id="canvas" width=240 height=600> </canvas>
+		<button onclick="startButtonFunc()">Start</button>
+		
+	</div>
+	
+	
+	</body>
+</html>
+	

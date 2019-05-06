@@ -1,9 +1,13 @@
+/*2d points to track position inside a 2 dimensional matrix */
 function _2DCoordinate(ic, jc) {
 	this.i = ic;
 	this.j = jc;
 }
 
+/*Straight polyomino*/
 function StraightPolyomino() {
+	
+	/*Initialize default state */
 	this.p1 = new _2DCoordinate(1,0);
 	this.p2 = new _2DCoordinate(1,1);
 	this.p3 = new _2DCoordinate(1,2);
@@ -11,17 +15,20 @@ function StraightPolyomino() {
 	
 	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
-	this.drawChar = 'I';
+	this.drawChar = 'I'; //Char identifier to be drawn on the field
 	this.advanced = 1;
 	this.retreated = 0;
+	
+	/*square bounding box */
 	this.minI = 1;
 	this.minJ = 3;
 	this.maxI = 1;
 	this.maxJ = 3;
 	
-	this.state = 0;
+	this.state = 0; //Current state
 	this.stateChange = -1;
 	
+	/* Update state if changed */
 	this.updateState = function() {
 		switch(this.state) {
 			case 0:
@@ -42,18 +49,21 @@ function StraightPolyomino() {
 		}
 	}
 	
+	/*Advance the state forward */
 	this.advanceState = function() {
 		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
+	/*Retreat the state */
 	this.retreatState = function() {
 		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
+	/*Upright position */
 	this.state0 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
@@ -74,6 +84,7 @@ function StraightPolyomino() {
 		this.maxJ = 3;
 	}
 	
+	/*Rightward position */
 	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 2;
@@ -94,6 +105,7 @@ function StraightPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Upside down position*/
 	this.state2 = function() {
 		this.p1.i = 2;
 		this.p1.j = 0;
@@ -114,6 +126,7 @@ function StraightPolyomino() {
 		this.maxJ = 3;
 	}
 	
+	/*Leftward position*/
 	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -136,7 +149,9 @@ function StraightPolyomino() {
 	
 }
 
+/*Square polyomino */
 function SquarePolyomino() {
+	/*Initialize default state */
 	this.p1 = new _2DCoordinate(0,1);
 	this.p2 = new _2DCoordinate(0,2);
 	this.p3 = new _2DCoordinate(1,1);
@@ -144,17 +159,20 @@ function SquarePolyomino() {
 	
 	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
-	this.drawChar = 'O';
+	this.drawChar = 'O'; //Char identifier to be drawn on the field
 	this.advanced = 1;
 	this.retreated = 0;
+	
+	/*square bounding box */
 	this.minI = 1;
 	this.minJ = 1;
 	this.maxI = 1;
 	this.maxJ = 2;
 	
-	this.state = 0;
+	this.state = 0; //Current state
 	this.stateChange = -1;
 	
+	/* Update state if changed */
 	this.updateState = function() {
 		switch(this.state) {
 			case 0:
@@ -175,18 +193,21 @@ function SquarePolyomino() {
 		}
 	}
 	
+	/*Advance the state forward */
 	this.advanceState = function() {
 		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
+	/*Retreat the state */
 	this.retreatState = function() {
 		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
+	/*Upright position */
 	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -207,6 +228,7 @@ function SquarePolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Rightward position */
 	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -227,6 +249,7 @@ function SquarePolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Upside down position*/
 	this.state2 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -247,6 +270,7 @@ function SquarePolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Leftward position*/
 	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -269,7 +293,10 @@ function SquarePolyomino() {
 	
 }
 
+/*J hook polyomino */
 function JPolyomino() {
+	
+	/*Initialize default state */
 	this.p1 = new _2DCoordinate(0,0);
 	this.p2 = new _2DCoordinate(1,0);
 	this.p3 = new _2DCoordinate(1,1);
@@ -277,17 +304,20 @@ function JPolyomino() {
 	
 	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
-	this.drawChar = 'J';
+	this.drawChar = 'J'; //Char identifier to be drawn on the field
 	this.advanced = 1;
 	this.retreated = 0;
+	
+	/*square bounding box */
 	this.minI = 0;
 	this.minJ = 0;
 	this.maxI = 1;
 	this.maxJ = 2;
 	
-	this.state = 0;
+	this.state = 0; //Current state
 	this.stateChange = -1;
 	
+	/* Update state if changed */
 	this.updateState = function() {
 		switch(this.state) {
 			case 0:
@@ -307,19 +337,19 @@ function JPolyomino() {
 				
 		}
 	}
-	
+	/*Advance the state forward */
 	this.advanceState = function() {
 		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
-	
+	/*Retreat the state */
 	this.retreatState = function() {
 		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
-	
+	/*Upright position */
 	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 0;
@@ -339,7 +369,7 @@ function JPolyomino() {
 		this.maxI = 1;
 		this.maxJ = 2;
 	}
-	
+	/*Rightward position */
 	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -359,7 +389,7 @@ function JPolyomino() {
 		this.maxI = 2;
 		this.maxJ = 2;
 	}
-	
+	/*Upside down position*/
 	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
@@ -379,7 +409,7 @@ function JPolyomino() {
 		this.maxI = 2;
 		this.maxJ = 2;
 	}
-	
+	/*Leftward position*/
 	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -401,8 +431,10 @@ function JPolyomino() {
 	}
 	
 }
-
+/* L hook polyomino */
 function LPolyomino() {
+	
+	/*Initialize default state */
 	this.p1 = new _2DCoordinate(0,2);
 	this.p2 = new _2DCoordinate(1,0);
 	this.p3 = new _2DCoordinate(1,1);
@@ -410,17 +442,20 @@ function LPolyomino() {
 	
 	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
-	this.drawChar = 'L';
+	this.drawChar = 'L'; //Char identifier to be drawn on the field
 	this.advanced = 1;
 	this.retreated = 0;
+	
+	/*square bounding box */
 	this.minI = 0;
 	this.minJ = 0;	
 	this.maxI = 2;
 	this.maxJ = 2;
 	
-	this.state = 0;
+	this.state = 0; //Current state
 	this.stateChange = -1;
 	
+	/* Update state if changed */
 	this.updateState = function() {
 		switch(this.state) {
 			case 0:
@@ -441,18 +476,21 @@ function LPolyomino() {
 		}
 	}
 	
+	/*Advance the state forward */
 	this.advanceState = function() {
 		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
+	/*Retreat the state */
 	this.retreatState = function() {
 		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
+	/*Upright position */
 	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 2;
@@ -473,6 +511,7 @@ function LPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Rightward position */
 	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -493,6 +532,7 @@ function LPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Upside down position*/
 	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
@@ -513,6 +553,7 @@ function LPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Leftward position*/
 	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 0;
@@ -534,8 +575,11 @@ function LPolyomino() {
 	}
 	
 }
-	
+
+/*T pipe polyomino*/
 function TPolyomino() {
+	
+	/*Initialize default state */
 	this.p1 = new _2DCoordinate(0,1);
 	this.p2 = new _2DCoordinate(1,0);
 	this.p3 = new _2DCoordinate(1,1);
@@ -543,18 +587,21 @@ function TPolyomino() {
 	
 	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
-	this.drawChar = 'T';
+	this.drawChar = 'T'; //Char identifier to be drawn on the field
 	this.advanced = 1;
 	this.retreated = 0;
+	
+	/*square bounding box */
 	this.minI = 0;
 	this.minJ = 2;
 	this.maxI = 1;
 	this.maxJ = 2;
 	
 	
-	this.state = 0;
+	this.state = 0; //Current state
 	this.stateChange = -1;
 	
+	/* Update state if changed */
 	this.updateState = function() {
 		switch(this.state) {
 			case 0:
@@ -575,18 +622,21 @@ function TPolyomino() {
 		}
 	}
 	
+	/*Advance the state forward */
 	this.advanceState = function() {
 		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
+	/*Retreat the state */
 	this.retreatState = function() {
 		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
+	/*Upright position */
 	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -607,6 +657,7 @@ function TPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Rightward position */
 	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -627,6 +678,7 @@ function TPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Upside down position*/
 	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
@@ -647,6 +699,7 @@ function TPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Leftward position*/
 	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -669,7 +722,10 @@ function TPolyomino() {
 	
 }
 
+/* S jagged polyomino */
 function SPolyomino() {
+	
+	/*Initialize default state */
 	this.p1 = new _2DCoordinate(0,1);
 	this.p2 = new _2DCoordinate(0,2);
 	this.p3 = new _2DCoordinate(1,0);
@@ -677,17 +733,20 @@ function SPolyomino() {
 	
 	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
-	this.drawChar = 'S';
+	this.drawChar = 'S'; //Char identifier to be drawn on the field
 	this.advanced = 1;
 	this.retreated = 0;
+	
+	/*square bounding box */
 	this.minI = 0;
 	this.minJ = 0;
 	this.maxI = 1;
 	this.maxJ = 2;
 	
-	this.state = 0;
+	this.state = 0; //Current state
 	this.stateChange = -1;
 	
+	/* Update state if changed */
 	this.updateState = function() {
 		switch(this.state) {
 			case 0:
@@ -708,18 +767,21 @@ function SPolyomino() {
 		}
 	}
 	
+	/*Advance the state forward */
 	this.advanceState = function() {
 		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
+	/*Retreat the state */
 	this.retreatState = function() {
 		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
+	/*Upright position */
 	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -740,6 +802,7 @@ function SPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Rightward position */
 	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 1;
@@ -759,7 +822,7 @@ function SPolyomino() {
 		this.maxI = 2;
 		this.maxJ = 2;
 	}
-	
+	/*Upside down position*/
 	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 1;
@@ -779,7 +842,7 @@ function SPolyomino() {
 		this.maxI = 2;
 		this.maxJ = 2;
 	}
-	
+	/*Leftward position*/
 	this.state3 = function() {
 		this.p1.i = 0;
 		this.p1.j = 0;
@@ -802,7 +865,10 @@ function SPolyomino() {
 	
 }
 
+/*Z jagged polyomino*/
 function ZPolyomino() {
+	
+	/*Initialize default state */
 	this.p1 = new _2DCoordinate(0,0);
 	this.p2 = new _2DCoordinate(0,1);
 	this.p3 = new _2DCoordinate(1,1);
@@ -810,17 +876,20 @@ function ZPolyomino() {
 	
 	this.pArray = [this.p1, this.p2, this.p3, this.p4];
 	
-	this.drawChar = 'Z';
+	this.drawChar = 'Z'; //Char identifier to be drawn on the field
 	this.advanced = 1;
 	this.retreated = 0;
+	
+	/*square bounding box */
 	this.minI = 0;
 	this.minJ = 0;	
 	this.maxI = 1;
 	this.maxJ = 2;
 	
-	this.state = 0;
+	this.state = 0; //Current state
 	this.stateChange = -1;
 	
+	/* Update state if changed */
 	this.updateState = function() {
 		switch(this.state) {
 			case 0:
@@ -841,18 +910,21 @@ function ZPolyomino() {
 		}
 	}
 	
+	/*Advance the state forward */
 	this.advanceState = function() {
 		this.state = (this.state < 3) ? this.state + 1 : 0;
 		this.updateState();
 		this.stateChange = this.advanced;
 	}
 	
+	/*Retreat the state */
 	this.retreatState = function() {
 		this.state = (this.state > 0) ? this.state - 1 : 3;
 		this.updateState();
 		this.stateChanged = this.retreated;
 	}
 	
+	/*Upright position */
 	this.state0 = function() {
 		this.p1.i = 0;
 		this.p1.j = 0;
@@ -873,6 +945,7 @@ function ZPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Rightward position */
 	this.state1 = function() {
 		this.p1.i = 0;
 		this.p1.j = 2;
@@ -893,6 +966,7 @@ function ZPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Upside down position*/
 	this.state2 = function() {
 		this.p1.i = 1;
 		this.p1.j = 0;
@@ -913,6 +987,7 @@ function ZPolyomino() {
 		this.maxJ = 2;
 	}
 	
+	/*Leftward position*/
 	this.state3 = function() {
 		this.p1.i = 1;
 		this.p1.j = 1;

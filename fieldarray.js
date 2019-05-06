@@ -1,4 +1,4 @@
-// ACTUAL BLANK FIELD FOR REAL USAGE
+// ACTUAL BLANK FIELD FOR REAL USAGE, 10 - 40 size
 var field = [
 				['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'],
 				['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'],
@@ -90,26 +90,26 @@ var field = [
 
 */
 			
-var fieldRow = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'];			
+var fieldRow = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N']; //Single row on the field	
 
-const START_LINE = 26;
-const KILL_LINE = 26;
-const START_POS = 5;
+const START_LINE = 26; //Line where tetrominos spawn
+const KILL_LINE = 26; //Line which if filled indicates game over
+const START_POS = 5; //Start position in middle of screen
 
-var translateI;
-var translateJ;
+var translateI; //Current I translation
+var translateJ;	//Current J translation
 
-var removalList = [];
-var activeTetromino;
-var tracking = false;
-var spawned = false;
+var removalList = []; //List of lines to remove
+var activeTetromino; //Current active tetromino
+var tracking = false; //Check if the current piece is actively being tracked
+var spawned = false; //Check if the piece is drawn to the field
 
-const I_TRANSLATION = 0;
-const J_TRANSLATION = 1;
-const ROTATE_CLOCKWISE = 0;
-const ROTATE_C_CLOCKWISE = 1;
+const I_TRANSLATION = 0; //Flag for I translation
+const J_TRANSLATION = 1; //Flag for J translation
+const ROTATE_CLOCKWISE = 0; //Flag for clockwise rotation
+const ROTATE_C_CLOCKWISE = 1; //Flag for counter clockwise rotation
 
-
+/*Check if I translation is within the games bounds*/
 function translationInIBound(shift) {
 	var iBound = 
 		((translateI + shift) - activeTetromino.p1.i >= 0 && (translateI + shift) - activeTetromino.p1.i < fieldRow.length) &
@@ -119,7 +119,7 @@ function translationInIBound(shift) {
 	return iBound;
 	
 }
-
+/*Check if J translation is within the games bounds*/
 function translationInJBound(shift) {
 	var jBound =
 		((translateJ + shift) - activeTetromino.p1.j >= 0 ) &
@@ -129,6 +129,7 @@ function translationInJBound(shift) {
 	return jBound;
 }
 
+/*Check if the point being looked at belongs to the current active tetromino */
 function pointIsSelf(i, j) {
 	var isSelf =
 		(activeTetromino.p1.i == i && activeTetromino.p1.j == j) |
@@ -138,7 +139,7 @@ function pointIsSelf(i, j) {
 	return isSelf;
 }
 
-
+/*Check if I translation is blocked by another impacted tetromino */
 function translationIBlocked(shift) {
 	var iBlocked =
 		( field[translateJ - activeTetromino.p1.j][(translateI + shift) - activeTetromino.p1.i] != 'N' && !pointIsSelf(translateI, translateJ + shift) ) |
@@ -147,7 +148,7 @@ function translationIBlocked(shift) {
 		( field[translateJ - activeTetromino.p4.j][(translateI + shift) - activeTetromino.p4.i] != 'N' && !pointIsSelf(translateI, translateJ + shift) ) ;
 	return iBlocked;
 }
-
+/*Check if J translation is blocked by another impacted tetromino */
 function translationJBlocked(shift) {
 	var jBlocked =
 		( field[(translateJ + shift) - activeTetromino.p1.j][translateI - activeTetromino.p1.i] != 'N' && !pointIsSelf(translateI + shift, translateJ) ) |
@@ -157,6 +158,7 @@ function translationJBlocked(shift) {
 	return jBlocked;
 }
 
+/*Check if the active tetromino is currently in an illegal position */
 function tetrominoIllegalPosition() {
 	var illegalPosition =
 		( field[translateJ - activeTetromino.p1.j][translateI - activeTetromino.p1.i] != 'N' ) |
@@ -176,10 +178,10 @@ function tetrominoIllegalPosition() {
 	return illegalPosition;
 }
 
+/*Check if the active tetromino can rotate */
 function canRotate(rotation) {
 	var rotatable;
 	
-	//floatTetromino();
 	switch(rotation) {
 		case ROTATE_CLOCKWISE:
 			activeTetromino.advanceState();
@@ -193,22 +195,20 @@ function canRotate(rotation) {
 			activeTetromino.advanceState();
 			break;
 	}
-	//anchorTetromino();
 	return rotatable;
 }
 
 
-
+/*Check if the current active tetromino has impacted either the bottom of the field or another piece */
 function tetrominoImpacted() {
-	var impacted =
-		( field[(translateJ - 1) - activeTetromino.p1.j][translateI - activeTetromino.p1.i] != 'N' && !pointIsSelf(translateI - 1, translateJ) ) |
-		( field[(translateJ - 1) - activeTetromino.p2.j][translateI - activeTetromino.p2.i] != 'N' && !pointIsSelf(translateI - 1, translateJ) ) |
-		( field[(translateJ - 1) - activeTetromino.p3.j][translateI - activeTetromino.p3.i] != 'N' && !pointIsSelf(translateI - 1, translateJ) ) |
-		( field[(translateJ - 1) - activeTetromino.p4.j][translateI - activeTetromino.p4.i] != 'N' && !pointIsSelf(translateI - 1, translateJ) ) ;
+	floatTetromino();
+	var impacted = !translationInJBound(-1) || translationJBlocked(-1);
+	anchorTetromino();
+	
 	return impacted;
 }
 
-
+/*Translate the tetromino a given direction */
 function translateTetromino(direction, shift) {
 	if(!tracking) {
 		return;
@@ -233,6 +233,7 @@ function translateTetromino(direction, shift) {
 	
 }
 
+/*Rotate the tetromino a given direction */
 function rotateTetromino(direction) {
 	if(!tracking) {
 		return;
@@ -256,20 +257,21 @@ function rotateTetromino(direction) {
 	anchorTetromino();
 }
 
+/*Erase the characters at the tetrominos current position for relocation */
 function floatTetromino() {
 	field[translateJ - activeTetromino.p1.j][translateI - activeTetromino.p1.i] = 'N';
 	field[translateJ - activeTetromino.p2.j][translateI - activeTetromino.p2.i] = 'N';
 	field[translateJ - activeTetromino.p3.j][translateI - activeTetromino.p3.i] = 'N';
 	field[translateJ - activeTetromino.p4.j][translateI - activeTetromino.p4.i] = 'N';
 }
-
+/*Draw tetromino specified characters at its current position*/
 function anchorTetromino() {
 	field[translateJ - activeTetromino.p1.j][translateI - activeTetromino.p1.i] = activeTetromino.drawChar;
 	field[translateJ - activeTetromino.p2.j][translateI - activeTetromino.p2.i] = activeTetromino.drawChar;
 	field[translateJ - activeTetromino.p3.j][translateI - activeTetromino.p3.i] = activeTetromino.drawChar;
 	field[translateJ - activeTetromino.p4.j][translateI - activeTetromino.p4.i] = activeTetromino.drawChar;	
 }
-
+/*Set the active tetromino */
 function activateTetromino(tetro) {
 	activeTetromino = tetro;
 	tracking = true;
@@ -277,7 +279,7 @@ function activateTetromino(tetro) {
 	translateJ = START_LINE;
 	translateI = START_POS;
 }
-
+/*Draw the active tetromino to the field */
 function insertTetromino() {
 	field[translateJ - activeTetromino.p1.j][translateI - activeTetromino.p1.i] = activeTetromino.drawChar;
 	field[translateJ - activeTetromino.p2.j][translateI - activeTetromino.p2.i] = activeTetromino.drawChar;
@@ -285,17 +287,18 @@ function insertTetromino() {
 	field[translateJ - activeTetromino.p4.j][translateI - activeTetromino.p4.i] = activeTetromino.drawChar;
 	spawned = true;
 }
-
+/*Release the active tetromino and allow another to be inserted */
 function releaseTetromino() {
 	activeTetronimo = null;
 	tracking = false;
 	spawned = false;
 }
-
+/*Check if the spawn is blocked */
 function spawnBlocked() {
 	return (!spawned && tracking && tetrominoIllegalPosition());
 }
 
+/*Scan the field for completed lines */
 function scanField() {
 	for(i = 0; i < field.length; i++) {
 		if(scanLine(i)) {
@@ -304,6 +307,7 @@ function scanField() {
 	}
 }
 
+/*Scan the kill line */
 function scanKillLine() {
 	var any = false;
 	
@@ -314,6 +318,7 @@ function scanKillLine() {
 	return any;
 }
 
+/*Scan a single line */
 function scanLine(i) {
 	var complete = true;
 	for(j = 0; j < field[i].length; j++) {
@@ -323,15 +328,16 @@ function scanLine(i) {
 	return complete;
 }
 
+/*Remove every line from the list */
 function removeLines() {
-	removalList.sort(function(a, b){return a - b});
+	removalList.sort(function(a, b){return a - b}); //Sort removal to ensure top to bottom removal
 	var ptr = removalList.length - 1;
 	for(i = 0; i < removalList.length; i++) {
 		removeLine(removalList[ptr--]);
 	}
 	removalList = [];
 }
-
+/*Remove a line and shift everything down */
 function removeLine(x) {
 	for(j = x; j < field.length - 1; j++) {
 		field[j] = field[j + 1].slice();
